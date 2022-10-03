@@ -55,3 +55,47 @@ print("The initial RMSE (using the guesses) before the optimization is: ",func(v
 bnds = ((0, 1), (0, 1))
 res= spo.minimize(func,v0,bounds=bnds)
 print(res)
+
+
+
+#Plots and graphs
+RKDeprt = []
+np.array(RKDeprt)
+np.array(RKDeprt)
+for i in range(130):
+        RKDeprt.append(rungeKutta(i, res.x[0], res.x[1], 0.1, 0, 14, 235, 0)[1])
+parameters, covariance = curve_fit(Gauss, time, RKDeprt,maxfev =80000)
+
+# print(parameters)
+fit_A = parameters[0]
+fit_B = parameters[1]
+fit_y = Gauss(time, fit_A, fit_B,-28)
+
+eprdprt = []
+np.array(eprdprt)
+for i in time:
+    eprdprt.append(Gauss(i,fit_A,fit_B,-28))
+plt.plot(time, RKDeprt,color = 'purple' , label = "RungeKutta produced data")
+plt.scatter(tdata, edata, color = 'c' , label = "Given Data")
+plt.plot(time,fit_y,color = 'rosybrown' , label = "Gauss Estimate")
+plt.xlabel("Number of Days")
+plt.ylabel("Verified Cases (E)")
+plt.legend(loc='upper right', frameon=False)
+print("The RMSE after optimization is: ",func((res.x[0],res.x[1])),)
+plt.show()
+
+
+
+RKDyprt = []
+np.array(RKDyprt)
+np.array(RKDyprt)
+for i in range(130):
+        RKDyprt.append(rungeKutta(i, res.x[0], res.x[1], 0.1, 0, 14, 235, 0)[0])
+yprdprt = []
+np.array(yprdprt)
+plt.plot(time, RKDyprt , color = 'maroon',label = 'RungeKutta produced Data')
+plt.scatter(tdata, ydata, color = 'cadetblue' , label = "Given Data")
+plt.xlabel("Number of Days")
+plt.ylabel("Suspected (Y)")
+plt.legend(loc='upper right', frameon=False)
+plt.show()
