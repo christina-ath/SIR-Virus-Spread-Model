@@ -23,7 +23,6 @@ np.array(v0)
 time = []
 np.array(time)
 
-
 for i in range(130):
     time.append(i)
 
